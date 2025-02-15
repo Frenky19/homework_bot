@@ -49,6 +49,15 @@ def check_tokens():
     return True
 
 
+def send_message(bot, message):
+    """Отправляет сообщение в Telegram."""
+    try:
+        bot.send_message(chat_id=TELEGRAM_CHAT_ID, text=message)
+        logger.debug(f'Сообщение успешно отправлено: {message}')
+    except Exception as error:
+        logger.error(f'Ошибка при отправке сообщения: {error}')
+
+
 def get_api_answer(timestamp):
     """Делает запрос к API и возвращает ответ от сервера в виде словаря."""
     params = {'from_date': timestamp}
@@ -111,20 +120,13 @@ def parse_status(homework):
         raise KeyError('Отсутствует название или статус домашней работы.')
     verdict = HOMEWORK_VERDICTS.get(homework_status)
     if verdict is None:
-        logger.error(f'Неизвестный статус домашней работы: {homework_status}.')
+        logger.info(
+            f'Неизвестный статус домашней работы: {homework_status}.'
+        )
         raise ValueError(
             f'Неизвестный статус домашней работы: {homework_status}.'
         )
     return f'Изменился статус проверки работы "{homework_name}". {verdict}'
-
-
-def send_message(bot, message):
-    """Отправляет сообщение в Telegram."""
-    try:
-        bot.send_message(chat_id=TELEGRAM_CHAT_ID, text=message)
-        logger.debug(f'Сообщение успешно отправлено: {message}')
-    except Exception as error:
-        logger.error(f'Ошибка при отправке сообщения: {error}')
 
 
 def main():
