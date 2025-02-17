@@ -1,14 +1,15 @@
 import logging
 import os
+import sys
 import time
 from http import HTTPStatus
 
-from dotenv import load_dotenv
 import requests
+from dotenv import load_dotenv
 from telebot import TeleBot
 
 from exeptions import ApiRequestError, ApiTelebotError, NoTokenError
-from variables import unknown_status
+
 
 load_dotenv()
 
@@ -28,7 +29,7 @@ HOMEWORK_VERDICTS = {
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
-handler = logging.StreamHandler()
+handler = logging.StreamHandler(sys.stdout)
 logger.addHandler(handler)
 formatter = logging.Formatter(
     '%(asctime)s - %(levelname)s - %(message)s'
@@ -102,7 +103,7 @@ def check_response(response):
     """Проверяет ответ API на корректность."""
     if not isinstance(response, dict):
         raise TypeError(
-            f'Ответ API должен быть словарём, '
+            'Ответ API должен быть словарём, '
             f'а получен тип: {type(response).__name__}.'
         )
     if 'homeworks' not in response or 'current_date' not in response:
@@ -112,7 +113,7 @@ def check_response(response):
     homeworks = response['homeworks']
     if not isinstance(homeworks, list):
         raise TypeError(
-            f'Ключ "homeworks" в ответе API должен содержать список, '
+            'Ключ "homeworks" в ответе API должен содержать список, '
             f'а получен тип: {type(homeworks).__name__}.'
         )
     return homeworks
@@ -128,8 +129,7 @@ def parse_status(homework):
         raise KeyError('Отсутствует название или статус домашней работы.')
     verdict = HOMEWORK_VERDICTS.get(homework_status)
     if verdict is None:
-        logger.info(f'{unknown_status} {homework_status}.')
-        raise ValueError(f'{unknown_status} {homework_status}.')
+        raise ValueError(f'Неизвестный статус домашней работы: {homework_status}.')
     return f'Изменился статус проверки работы "{homework_name}". {verdict}'
 
 
@@ -139,17 +139,15 @@ def main():
     check_tokens()
     timestamp = int(time.time())
     last_error_message = None
-    last_homework_message = None
     while True:
         try:
             response = get_api_answer(timestamp)
             homeworks = check_response(response)
             if homeworks:
                 message = parse_status(homeworks[0])
-                if message != last_homework_message:
-                    if send_message(bot, message):
-                        timestamp = response.get('current_date', timestamp)
-                        last_homework_message = message
+                if send_message(bot, message):
+                    timestamp = response.get('current_date', timestamp)
+                    last_error_message = None
             else:
                 logger.debug('В ответе API нет новых домашних работ.')
         except Exception as error:

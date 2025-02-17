@@ -1,14 +1,10 @@
-from requests.exceptions import RequestException
-from telebot.apihelper import ApiException
-
-
 class NoTokenError(Exception):
     """Отсутствует один или нескольно необходимых токенов."""
 
 
-class ApiTelebotError(ApiException):
+class ApiTelebotError(Exception):
     """Ошибка со стороны телеграма."""
 
 
-class ApiRequestError(RequestException):
+class ApiRequestError(Exception):
     """Ошибка выполнения HTTP-запроса к API."""
