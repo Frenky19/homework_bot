@@ -129,7 +129,9 @@ def parse_status(homework):
         raise KeyError('Отсутствует название или статус домашней работы.')
     verdict = HOMEWORK_VERDICTS.get(homework_status)
     if verdict is None:
-        raise ValueError(f'Неизвестный статус домашней работы: {homework_status}.')
+        raise ValueError(
+            f'Неизвестный статус домашней работы: {homework_status}.'
+        )
     return f'Изменился статус проверки работы "{homework_name}". {verdict}'
 
 
