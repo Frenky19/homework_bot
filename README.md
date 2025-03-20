@@ -4,12 +4,12 @@
 
 ## Технологии
     Язык:	        - Python 3.7+
-    	            - requests — HTTP-запросы к API
-    Библиотеки:     - pyTelegramBotAPI — интеграция с Telegram Bot API
+    Библиотеки:	- requests — HTTP-запросы к API
+                    - pyTelegramBotAPI — интеграция с Telegram Bot API
                     - python-dotenv — загрузка переменных окружения
     Тестирование:	- pytest — фреймворк для тестов
                     - pytest-timeout — тесты с таймаутами
-    Линтинг:	    - flake8 — проверка стиля кода (PEP8)
+    Линтинг:	- flake8 — проверка стиля кода (PEP8)
                     - flake8-docstrings — валидация докстрингов
     Работа с API	- Яндекс.Практикум API (через ENDPOINT)
                     - Telegram Bot API (через библиотеку)
