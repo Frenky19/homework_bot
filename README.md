@@ -52,11 +52,11 @@ pip install -r requirements.txt
     Создайте файл .env в корне проекта.
     Заполните его данными:
 
-```env
-PRACTICUM_TOKEN=<ваш_токен_Яндекс.Практикума>
-TOKEN=<ваш_Telegram_токен>
-CHAT_ID=<ваш_Telegram_ID>
-```
+    ```env
+    PRACTICUM_TOKEN=<ваш_токен_Яндекс.Практикума>
+    TOKEN=<ваш_Telegram_токен>
+    CHAT_ID=<ваш_Telegram_ID>
+    ```
 
     Как получить PRACTICUM_TOKEN:
 
@@ -74,6 +74,7 @@ CHAT_ID=<ваш_Telegram_ID>
     ```bash
     python homework_bot.py
     ```
+
     Бот начнет проверять статус домашней работы каждые 10 минут. Убедитесь, что файл .env корректно настроен.
 
 ### Пример работы
