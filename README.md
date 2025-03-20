@@ -32,15 +32,13 @@
 - Обработка и логирование ошибок при запросах к API
 - Уведомление об ошибках в Telegram при возникновении сбоев
 
-## Установка и настройка
-
-### Предварительные требования
+## Предварительные требования
 
 - Python 3.7+
 - Учетная запись на Яндекс.Практикуме
 - Telegram-бот (для получения `TELEGRAM_TOKEN` и `TELEGRAM_CHAT_ID`)
 
-### Зависимости
+## Зависимости
 
 ```text
 requests==2.26.0
@@ -51,8 +49,28 @@ flake8-docstrings==1.6.0
 pytest==7.1.3
 pytest-timeout==2.1.0
 ```
+## Установка и настройка
 
-### Установка зависимостей
+1. Клонировать репозиторий и перейти в него в командной строке:
+
+```bash
+git clone https://github.com/frenky19/homework_bot.git
+```
+```bash
+cd homework_bot
+```
+
+2. Создать и активировать виртуальное окружение:
+
+```bash
+python -m venv env
+```
+```bash
+source env/bin/activate  # Linux
+source env/scripts/activate  # Windows
+```
+
+3. Установить зависимости:
 
 ```bash
 pip install -r requirements.txt
@@ -80,7 +98,7 @@ CHAT_ID=<ваш_Telegram_ID>
     - Создайте бота через BotFather для получения TOKEN.
     - Узнайте свой CHAT_ID через бота @userinfobot.
 
-## Запуск бота
+### Запуск бота
 
 ```bash
 python homework_bot.py
